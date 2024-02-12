@@ -1,0 +1,89 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proveedors",
+  "info": {
+    "singularName": "proveedor",
+    "pluralName": "proveedors",
+    "displayName": "Proveedor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "string",
+      "required": true
+    },
+    "Descripcion": {
+      "type": "string"
+    },
+    "Activo": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "Tipo": {
+      "type": "enumeration",
+      "enum": [
+        "Funeraria",
+        "Cementerio",
+        "Crematorio"
+      ],
+      "required": true
+    },
+    "servicios": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::servicio.servicio",
+      "mappedBy": "proveedor"
+    },
+    "NombreContacto": {
+      "type": "string"
+    },
+    "EmailContacto": {
+      "type": "email"
+    },
+    "sucursals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sucursal.sucursal",
+      "mappedBy": "proveedor"
+    },
+    "NombreRepresentante": {
+      "type": "string"
+    },
+    "FechaCertificacion": {
+      "type": "date"
+    },
+    "CertificadoTraslado": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Resolucion": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "TelefonoContacto": {
+      "type": "string"
+    },
+    "ZonaCobertura": {
+      "type": "string"
+    }
+  }
+}

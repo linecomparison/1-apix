@@ -482,6 +482,97 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   };
 }
 
+export interface PluginContentReleasesRelease extends Schema.CollectionType {
+  collectionName: 'strapi_releases';
+  info: {
+    singularName: 'release';
+    pluralName: 'releases';
+    displayName: 'Release';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    releasedAt: Attribute.DateTime;
+    actions: Attribute.Relation<
+      'plugin::content-releases.release',
+      'oneToMany',
+      'plugin::content-releases.release-action'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::content-releases.release',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::content-releases.release',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginContentReleasesReleaseAction
+  extends Schema.CollectionType {
+  collectionName: 'strapi_release_actions';
+  info: {
+    singularName: 'release-action';
+    pluralName: 'release-actions';
+    displayName: 'Release Action';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    type: Attribute.Enumeration<['publish', 'unpublish']> & Attribute.Required;
+    entry: Attribute.Relation<
+      'plugin::content-releases.release-action',
+      'morphToOne'
+    >;
+    contentType: Attribute.String & Attribute.Required;
+    release: Attribute.Relation<
+      'plugin::content-releases.release-action',
+      'manyToOne',
+      'plugin::content-releases.release'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::content-releases.release-action',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::content-releases.release-action',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginI18NLocale extends Schema.CollectionType {
   collectionName: 'i18n_locale';
   info: {
@@ -677,6 +768,268 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiModuloModulo extends Schema.CollectionType {
+  collectionName: 'modulos';
+  info: {
+    singularName: 'modulo';
+    pluralName: 'modulos';
+    displayName: 'Modulo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nombre: Attribute.String;
+    Identificador: Attribute.String;
+    url: Attribute.String;
+    spreadsheetId: Attribute.String;
+    shareDrive: Attribute.String;
+    idFolder: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::modulo.modulo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::modulo.modulo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOtrospagoOtrospago extends Schema.CollectionType {
+  collectionName: 'otrospagos';
+  info: {
+    singularName: 'otrospago';
+    pluralName: 'otrospagos';
+    displayName: 'OtrosPago';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Monto: Attribute.BigInteger;
+    MonedaPago: Attribute.Enumeration<
+      [
+        'CLP Peso Chileno',
+        'USD D\u00F3lar americano',
+        'EUR Euro europeo',
+        'UF Unidad de Fomento',
+        'UTM Unidad Tributaria Mensual',
+        'CAD D\u00F3lar canadiense',
+        'DKK Corona danesa',
+        'GBP Libra esterlina',
+        'JPY Yen japon\u00E9s',
+        'NOK Corona noruega',
+        'SEK Corona sueca',
+        'ZAR Rand sudafricano'
+      ]
+    >;
+    ConceptoPago: Attribute.Enumeration<
+      [
+        'Patente',
+        'Multas',
+        'Contribuciones',
+        'Concesiones Mar\u00EDtimas',
+        'Anticipo'
+      ]
+    >;
+    RutProveedor: Attribute.String;
+    Vencimiento: Attribute.Date;
+    Observacion: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::otrospago.otrospago',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::otrospago.otrospago',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProveedorProveedor extends Schema.CollectionType {
+  collectionName: 'proveedors';
+  info: {
+    singularName: 'proveedor';
+    pluralName: 'proveedors';
+    displayName: 'Proveedor';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nombre: Attribute.String & Attribute.Required;
+    Descripcion: Attribute.String;
+    Activo: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<true>;
+    Tipo: Attribute.Enumeration<['Funeraria', 'Cementerio', 'Crematorio']> &
+      Attribute.Required;
+    servicios: Attribute.Relation<
+      'api::proveedor.proveedor',
+      'oneToMany',
+      'api::servicio.servicio'
+    >;
+    NombreContacto: Attribute.String;
+    EmailContacto: Attribute.Email;
+    sucursals: Attribute.Relation<
+      'api::proveedor.proveedor',
+      'oneToMany',
+      'api::sucursal.sucursal'
+    >;
+    NombreRepresentante: Attribute.String;
+    FechaCertificacion: Attribute.Date;
+    CertificadoTraslado: Attribute.Media;
+    Resolucion: Attribute.Media;
+    TelefonoContacto: Attribute.String;
+    ZonaCobertura: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::proveedor.proveedor',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::proveedor.proveedor',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiServicioServicio extends Schema.CollectionType {
+  collectionName: 'servicios';
+  info: {
+    singularName: 'servicio';
+    pluralName: 'servicios';
+    displayName: 'Servicio';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nombre: Attribute.String;
+    Valor: Attribute.BigInteger;
+    Tipo: Attribute.Blocks;
+    Caracteristicas: Attribute.Blocks;
+    Descripcion: Attribute.Blocks;
+    proveedor: Attribute.Relation<
+      'api::servicio.servicio',
+      'manyToOne',
+      'api::proveedor.proveedor'
+    >;
+    Adicional: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::servicio.servicio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::servicio.servicio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSucursalSucursal extends Schema.CollectionType {
+  collectionName: 'sucursals';
+  info: {
+    singularName: 'sucursal';
+    pluralName: 'sucursals';
+    displayName: 'Sucursal';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Calle: Attribute.String;
+    Numero: Attribute.BigInteger;
+    Region: Attribute.String;
+    Comuna: Attribute.String;
+    Ciudad: Attribute.String;
+    proveedor: Attribute.Relation<
+      'api::sucursal.sucursal',
+      'manyToOne',
+      'api::proveedor.proveedor'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::sucursal.sucursal',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::sucursal.sucursal',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiUsuarioUsuario extends Schema.CollectionType {
+  collectionName: 'usuarios';
+  info: {
+    singularName: 'usuario';
+    pluralName: 'usuarios';
+    displayName: 'Usuario';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nombre: Attribute.String;
+    Email: Attribute.Email;
+    Apellido: Attribute.String;
+    Telefono: Attribute.String;
+    Rut: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::usuario.usuario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::usuario.usuario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -689,10 +1042,18 @@ declare module '@strapi/types' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
+      'plugin::content-releases.release': PluginContentReleasesRelease;
+      'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::modulo.modulo': ApiModuloModulo;
+      'api::otrospago.otrospago': ApiOtrospagoOtrospago;
+      'api::proveedor.proveedor': ApiProveedorProveedor;
+      'api::servicio.servicio': ApiServicioServicio;
+      'api::sucursal.sucursal': ApiSucursalSucursal;
+      'api::usuario.usuario': ApiUsuarioUsuario;
     }
   }
 }

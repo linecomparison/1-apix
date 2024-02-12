@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sucursals",
+  "info": {
+    "singularName": "sucursal",
+    "pluralName": "sucursals",
+    "displayName": "Sucursal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Calle": {
+      "type": "string"
+    },
+    "Numero": {
+      "type": "biginteger"
+    },
+    "Region": {
+      "type": "string"
+    },
+    "Comuna": {
+      "type": "string"
+    },
+    "Ciudad": {
+      "type": "string"
+    },
+    "proveedor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::proveedor.proveedor",
+      "inversedBy": "sucursals"
+    }
+  }
+}

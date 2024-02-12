@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "modulos",
+  "info": {
+    "singularName": "modulo",
+    "pluralName": "modulos",
+    "displayName": "Modulo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "string"
+    },
+    "Identificador": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "spreadsheetId": {
+      "type": "string"
+    },
+    "shareDrive": {
+      "type": "string"
+    },
+    "idFolder": {
+      "type": "string"
+    }
+  }
+}

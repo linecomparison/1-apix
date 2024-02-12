@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "usuarios",
+  "info": {
+    "singularName": "usuario",
+    "pluralName": "usuarios",
+    "displayName": "Usuario"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "string"
+    },
+    "Email": {
+      "type": "email"
+    },
+    "Apellido": {
+      "type": "string"
+    },
+    "Telefono": {
+      "type": "string"
+    },
+    "Rut": {
+      "type": "string"
+    }
+  }
+}

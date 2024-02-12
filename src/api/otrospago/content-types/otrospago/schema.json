@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "otrospagos",
+  "info": {
+    "singularName": "otrospago",
+    "pluralName": "otrospagos",
+    "displayName": "OtrosPago",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Monto": {
+      "type": "biginteger"
+    },
+    "MonedaPago": {
+      "type": "enumeration",
+      "enum": [
+        "CLP Peso Chileno",
+        "USD Dólar americano",
+        "EUR Euro europeo",
+        "UF Unidad de Fomento",
+        "UTM Unidad Tributaria Mensual",
+        "CAD Dólar canadiense",
+        "DKK Corona danesa",
+        "GBP Libra esterlina",
+        "JPY Yen japonés",
+        "NOK Corona noruega",
+        "SEK Corona sueca",
+        "ZAR Rand sudafricano"
+      ]
+    },
+    "ConceptoPago": {
+      "type": "enumeration",
+      "enum": [
+        "Patente",
+        "Multas",
+        "Contribuciones",
+        "Concesiones Marítimas",
+        "Anticipo"
+      ]
+    },
+    "RutProveedor": {
+      "type": "string"
+    },
+    "Vencimiento": {
+      "type": "date"
+    },
+    "Observacion": {
+      "type": "blocks"
+    }
+  }
+}
